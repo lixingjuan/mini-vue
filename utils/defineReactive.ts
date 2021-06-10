@@ -1,10 +1,3 @@
-/*
- * @desc:
- */
-const sourceObj = {
-  name: 'lixingjuan',
-}
-
 function defineReactive(obj, key) {
   const property = Object.getOwnPropertyDescriptor(obj, key)
   if (!property.configurable) {
@@ -48,10 +41,4 @@ function defineReactive(obj, key) {
   // obj.name
 }
 
-defineReactive(sourceObj, 'name')
-
-console.log(sourceObj.name)
-sourceObj.name = '1000'
-console.log(sourceObj.name)
-sourceObj.name = 'jhha'
-// console.log(sourceObj.hahah)
+export default defineReactive
