@@ -1,0 +1,39 @@
+{
+  "name": "mini-vue",
+  "version": "1.0.0",
+  "description": "学习vue的响应式例子-尝试编辑响应式",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lixingjuan/mini-vue.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lixingjuan/mini-vue/issues"
+  },
+  "homepage": "https://github.com/lixingjuan/mini-vue#readme",
+  "dependencies": {
+    "eslint": "^7.28.0"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.3.1"
+  },
+  "eslintConfig": {
+    "extends": [
+      "prettier"
+    ],
+    "plugins": [
+      "prettier"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false
+  }
+}
