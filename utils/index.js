@@ -1,7 +1,6 @@
+import MiniVue from './mini-vue.js';
+export { getVNode } from './vnode.js';
+export { parseVnode } from './parse-vnode.js';
+export { defineReactive } from './define-reactive.js';
 
-import MiniVue from './mini-vue.js'
-
-
-export default MiniVue
-
-
+export default MiniVue;

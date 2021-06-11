@@ -1,11 +1,17 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
+    <!-- <script src="./utils/index.js"></script> -->
+    <script type="module">
+      // other code
+    </script>
   </head>
   <body>
+    <!-- 写模板 -->
     <div id="app">
       <div>
         <p class="message">{{ message }}</p>
@@ -14,15 +20,29 @@
     </div>
 
     <script type="module">
-      import MiniVue from './utils/index.js';
+      import MiniVue, { getVNode, parseVnode } from "./utils/index.js";
 
-      const root = document.querySelector('#app');
+      const root = document.querySelector("#app");
+
+      const testVNode = getVNode(root);
+      root.appendChild(parseVnode(testVNode));
+
+      const _ele = document.createElement("div");
+      _ele.innerText = "hahah";
+      _ele.setAttribute("class", "hahah");
+
+      const _pEle = document.createElement("p");
+      _pEle.innerText = "ppppp";
+
+      _ele.appendChild(_pEle);
+
+      root.appendChild(_ele);
 
       const app = new MiniVue({
-        el: '#app',
+        el: "#app",
         data: {
-          message: 'info',
-          name: 'lixingjuan',
+          message: "info",
+          name: "lixingjuan",
         },
       });
     </script>

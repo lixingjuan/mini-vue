@@ -1,44 +1,42 @@
 function defineReactive(obj, key) {
-  const property = Object.getOwnPropertyDescriptor(obj, key)
+  const property = Object.getOwnPropertyDescriptor(obj, key);
   if (!property.configurable) {
-    return
+    return;
   }
 
-  const { value } = property
+  const { value } = property;
 
-  const getter = property && property.get
-  const setter = property && property.set
+  // const getter = property && property.get;
+  // const setter = property && property.set;
 
   /**
    * 实现响应式的核心:
    * Object.defineProperty
    * 该方法可以支持自定义对象的 get 和 set 方法
    */
-  let tempVal = value
-
-  const a = 1
+  let tempVal = value;
 
   Object.defineProperty(obj, 'name', {
     enumerable: true,
     configurable: true,
     get: function reactiveGetter() {
       // console.log(this.name)
-      console.log('访问get')
+      console.log('访问get');
       // 在get 收集依赖
 
-      return tempVal
+      return tempVal;
     },
     set: function reactiveSetter(newVal) {
-      console.log('访问set')
+      console.log('访问set');
       if (newVal === value || (newVal !== newVal && value !== value)) {
-        return
+        return;
       }
-      tempVal = newVal
+      tempVal = newVal;
       // 在set 派发更新
     },
-  })
+  });
 
   // obj.name
 }
 
-export default defineReactive
+export { defineReactive };
