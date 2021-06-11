@@ -6,11 +6,25 @@
     <title>Document</title>
   </head>
   <body>
-    <div id="root"></div>
-    <script src="./index.js"></script>
-    <!-- <script> -->
-    <!-- const a = '2'; -->
-    <!-- console.log(defineReactive); -->
-    <!-- </script> -->
+    <div id="app">
+      <div>
+        <p class="message">{{ message }}</p>
+        <p>{{ name }}</p>
+      </div>
+    </div>
+
+    <script type="module">
+      import MiniVue from './utils/index.js';
+
+      const root = document.querySelector('#app');
+
+      const app = new MiniVue({
+        el: '#app',
+        data: {
+          message: 'info',
+          name: 'lixingjuan',
+        },
+      });
+    </script>
   </body>
 </html>
