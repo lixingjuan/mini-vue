@@ -22,22 +22,6 @@
     <script type="module">
       import MiniVue, { getVNode, parseVnode } from "./utils/index.js";
 
-      const root = document.querySelector("#app");
-
-      const testVNode = getVNode(root);
-      root.appendChild(parseVnode(testVNode));
-
-      const _ele = document.createElement("div");
-      _ele.innerText = "hahah";
-      _ele.setAttribute("class", "hahah");
-
-      const _pEle = document.createElement("p");
-      _pEle.innerText = "ppppp";
-
-      _ele.appendChild(_pEle);
-
-      root.appendChild(_ele);
-
       const app = new MiniVue({
         el: "#app",
         data: {

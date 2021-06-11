@@ -56,4 +56,4 @@ function getVNode(node) {
   return null;
 }
 
-export { getVNode };
+export { getVNode, VNode };

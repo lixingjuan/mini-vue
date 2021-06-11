@@ -1,3 +1,10 @@
+import { getVNode } from './vnode.js';
+
+/**
+ * @des 根据 根据vnode 进行值 的替换
+ * @param {*} template
+ * @param {*} data
+ */
 function compiler(template, data) {
   const reg = /\{\{(.*)\}\}/g;
 
@@ -25,6 +32,8 @@ function compiler(template, data) {
 
 /**
  * Vue原型
+ * new MiniVue 的时候，执行render,
+ * render 时执行 compiler
  */
 function MiniVue(options) {
   // 习惯: 内部的数据使用下划线 开头, 只读数据使用 $ 开头
