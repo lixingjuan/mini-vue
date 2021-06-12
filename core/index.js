@@ -1,5 +1,4 @@
 import MiniVue from './mini-vue.js';
-export { getVNode, VNode } from './vnode.js';
-export { parseVnode } from './parse-vnode.js';
+export { getVNode, parseVNode, VNode } from './vnode.js';
 
 export default MiniVue;

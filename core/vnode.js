@@ -19,6 +19,11 @@ class VNode {
   }
 }
 
+/**
+ * @des 根据真实dom, 得到一个vnode对象
+ * @param {node} 真实dom
+ * @return {vnode} vnode对象
+ */
 function getVNode(node) {
   const nodeType = node.nodeType;
   // 文本节点
@@ -56,4 +61,63 @@ function getVNode(node) {
   return null;
 }
 
-export { getVNode, VNode };
+/**
+ * @des 将虚拟dom, vnode 解析为真实的dom
+ * @param {vnode} vnode对象
+ * @return {node} 真实dom
+ */
+function parseVNode(vnode) {
+  const { tag, data: attrsArr, type, value, children } = vnode;
+
+  let _node = null;
+
+  if (type === 3) {
+    return document.createTextNode(value); // 创建文本节点
+  } else if (type === 1) {
+    _node = document.createElement(tag);
+
+    // 属性
+    Object.keys(attrsArr).forEach((key) => {
+      let attrName = key;
+      let attrValue = attrsArr[key];
+      _node.setAttribute(attrName, attrValue);
+    });
+
+    children.forEach((subvnode) => {
+      const childEle = parseVNode(subvnode);
+      _node.appendChild(childEle); // 递归转换子元素 ( 虚拟 DOM )
+    });
+
+    return _node;
+  }
+
+  // let _ele = null;
+
+  // if (tag) {
+  //   _ele = document.createElement(tag);
+  // } else {
+  //   _ele = document.createTextNode(value);
+  //   _ele.textContent === value;
+  // }
+
+  // _ele.nodeType === type;
+
+  // if (!children && attrsArr) {
+  //   for (const key of attrsArr) {
+  //     const value = attrsArr[key];
+  //     _ele.setAttribute(key, value);
+  //   }
+  // }
+
+  // if (children) {
+  //   [...children].forEach((it) => {
+  //     const childEle = parseVNode(it);
+  //     console.log({ childEle });
+  //     _ele.appendChild(childEle);
+  //   });
+  // }
+
+  // return _ele;
+}
+
+export { getVNode, parseVNode, VNode };

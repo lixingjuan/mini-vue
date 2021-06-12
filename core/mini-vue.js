@@ -1,5 +1,5 @@
-// import { getVNode } from "./vnode.js";
 import { Observer } from './define-reactive.js';
+import { getVNode, parseVNode } from './vnode.js';
 
 /**
  * @des 根据 根据vnode 进行值 的替换
@@ -37,7 +37,6 @@ function compiler(template, data) {
  * render 时执行 compiler
  */
 function MiniVue(options) {
-  // 习惯: 内部的数据使用下划线 开头, 只读数据使用 $ 开头
   this._data = options.data;
   this._el = options.el;
 
@@ -53,13 +52,20 @@ function MiniVue(options) {
 }
 
 MiniVue.prototype.render = function () {
-  const realHTMLDOM = this._templateDOM.cloneNode(true); // 用 模板 拷贝 得到 一个 准 DOM
-  compiler(realHTMLDOM, this._data);
-  this.update(realHTMLDOM);
+  const realHTMLVNode = this._templateDOM.cloneNode(true);
+  compiler(realHTMLVNode, this._data);
+
+  this.update(getVNode(realHTMLVNode));
 };
 
-MiniVue.prototype.update = function (real) {
-  this._parent.replaceChild(real, document.querySelector(this._el));
+/**
+ * @des 更新 - 将虚拟 DOM 渲染到页面中: diff 算法就在里（此版本mini-vue没做diff两次vnode对比）
+ * @param {*} vnode
+ * @return {*}
+ */
+MiniVue.prototype.update = function (vnode) {
+  const realDOM = parseVNode(vnode);
+  this._parent.replaceChild(realDOM, document.querySelector(this._el));
 };
 
 export default MiniVue;

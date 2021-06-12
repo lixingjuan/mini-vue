@@ -21,7 +21,7 @@ function defineReactive(obj, key) {
    */
   let tempVal = value;
 
-  Object.defineProperty(obj, 'name', {
+  Object.defineProperty(obj, key, {
     enumerable: true,
     configurable: true,
     get: function reactiveGetter() {
@@ -37,7 +37,13 @@ function defineReactive(obj, key) {
         return;
       }
       tempVal = newVal;
-      // 在set 派发更新
+      //
+      /**
+       * TODO: 这边应该是根据diff的结果，去更新一小片的dom, 但是目前没有做diff处理，所以就更新所有dom
+       * 即相当于调用 render,
+       * 另外，update 更新应该是发布者-Watcher 通知所有的订阅者，但是现在还没写Watcher, 所以直接粗暴的使用window上的render
+       */
+      window.app.render();
     },
   });
 }
