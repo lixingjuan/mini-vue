@@ -1,4 +1,4 @@
-import { getVNode } from './vnode.js';
+// import { getVNode } from "./vnode.js";
 
 /**
  * @des 根据 根据vnode 进行值 的替换
