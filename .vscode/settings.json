@@ -2,34 +2,38 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
+  "editor.formatOnSave": false,
   "prettier.printWidth": 80,
   "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
   },
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": false
   },
   "[markdown]": {
     "editor.defaultFormatter": "fcrespo82.markdown-table-formatter",
     "editor.wordWrap": "on",
     "editor.quickSuggestions": true
   },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
   "markdown.extension.syntax.plainTheme": true,
   "javascript.updateImportsOnFileMove.enabled": "always",
   "markdown-table-formatter.markdownGrammarScopes": ["markdown", "vue"],
   "javascript.format.insertSpaceAfterSemicolonInForStatements": true,
   "sync.gist": "824a5807444cb570c9c9cfbf85bed4ed",
-  "prettier.eslintIntegration": true,
   "javascript.validate.enable": false,
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "editor.tabSize": 2,
-  "editor.formatOnSave": true
+
+  "editor.tabSize": 2
 }

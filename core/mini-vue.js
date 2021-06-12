@@ -1,4 +1,5 @@
 // import { getVNode } from "./vnode.js";
+import { Observer } from './define-reactive.js';
 
 /**
  * @des 根据 根据vnode 进行值 的替换
@@ -44,6 +45,9 @@ function MiniVue(options) {
   this._templateDOM = document.querySelector(this._el);
   this._parent = this._templateDOM.parentNode;
 
+  new Observer(this._data);
+  // 打印看下this._data
+  console.log('响应式后的this._data', this._data);
   // 渲染工作
   this.render();
 }
