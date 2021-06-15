@@ -1,10 +1,13 @@
 // import { observe } from './observe.js';
 
+import { Dep } from './dep.js';
 /**
  * 重写对象的 get/set
  * 从而实现在 访问/设置 做依赖收集/派发更新
  */
 function defineReactive(obj, key) {
+  const dep = new Dep();
+
   const property = Object.getOwnPropertyDescriptor(obj, key);
   obj.testtest = 'test';
   if (!property.configurable) {
@@ -29,10 +32,8 @@ function defineReactive(obj, key) {
     enumerable: true,
     configurable: true,
     get: function reactiveGetter() {
-      // console.log(this.name)
-      console.log('访问get');
-      // 在get 收集依赖
-
+      // 依赖收集
+      dep.depend();
       return tempVal;
     },
     set: function reactiveSetter(newVal) {
@@ -43,20 +44,22 @@ function defineReactive(obj, key) {
       console.log(newVal);
       // childObj = observe(newVal);
 
-      if (setter) {
-        setter.call(obj, newVal);
-      } else {
-        tempVal = newVal;
-        console.log({ tempVal });
-      }
+      // if (setter) {
+      //   setter.call(obj, newVal);
+      // } else {
+      //   tempVal = newVal;
+      //   console.log({ tempVal });
+      // }
+      tempVal = newVal;
 
       //
       /**
        * TODO: 这边应该是根据diff的结果，去更新一小片的dom, 但是目前没有做diff处理，所以就更新所有dom
        * 即相当于调用 render,
-       * 另外，update 更新应该是发布者-Watcher 通知所有的订阅者，但是现在还没写Watcher, 所以直接粗暴的使用window上的render
        */
-      window.app.render();
+
+      // 派发更新, 找到全局的 watcher, 调用 update
+      dep.notify();
     },
   });
 }
