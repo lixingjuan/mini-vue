@@ -1,19 +1,12 @@
-// import { optionsMixin, stateMixin, renderMixin } from './instance/index.js';
+import {
+  initMixin,
+  optionsMixin,
+  stateMixin,
+  renderMixin,
+} from "./instance/index.js";
 
-// function MiniVue(options) {
-//   this._init(options);
-//   window.vm = this;
-//   console.log('cee', this.name);
-
-//   window.testThis = this;
-// }
-
-// optionsMixin(MiniVue);
-// stateMixin(MiniVue);
-// renderMixin(MiniVue);
-import Observer from './observe.js';
-import { initData, parseVNode, getVNode } from './init-data.js';
-import { Watcher } from './Watcher.js';
+import { parseVNode, getVNode } from "./init-data.js";
+import { Watcher } from "./Watcher.js";
 
 /**
  * @des 根据 根据vnode 进行值 的替换
@@ -51,27 +44,21 @@ function compiler(template, data) {
  * render 时执行 compiler
  */
 function MiniVue(options) {
-  this._data = options.data;
-  this._el = options.el;
-
-  initData.bind(this)();
-
-  // 准备工作 ( 准备模板 )
-  this._templateDOM = document.querySelector(this._el);
-  this._parent = this._templateDOM.parentNode;
-
-  window.vm = this;
-
-  new Observer(this._data);
-
-  // 渲染工作
-  new Watcher(this, this.render);
+  this._init(options);
 }
+
+export function mountComponent(vm, el) {
+  new Watcher(vm, this.render);
+}
+
+MiniVue.prototype.$mount = mountComponent;
+
+initMixin(MiniVue);
+stateMixin(MiniVue);
 
 MiniVue.prototype.render = function () {
   const realHTMLVNode = this._templateDOM.cloneNode(true);
   compiler(realHTMLVNode, this._data);
-
   this.update(getVNode(realHTMLVNode));
 };
 

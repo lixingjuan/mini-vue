@@ -1,4 +1,4 @@
-import { getVNode, parseVNode } from './vnode.js';
+import { getVNode, parseVNode } from "./vnode.js";
 
 /**
  * @des 将 某一个对象的属性 访问 映射到 对象的某一个属性成员上
@@ -22,16 +22,4 @@ function proxy(target, prop, key) {
   });
 }
 
-/**
- * @des 代理数据
- * @param {*}
- * @return {*}
- */
-function initData() {
-  Object.keys(this._data).forEach((key) => {
-    proxy(this, '_data', key);
-  });
-  this.$data = this._data;
-}
-
-export { initData, parseVNode, getVNode };
+export { parseVNode, getVNode };
