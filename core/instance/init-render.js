@@ -1,6 +1,35 @@
-import Observer from '../observe.js';
-import { getVNode, parseVNode } from '../vnode.js';
-import { compiler } from '../compiler.js';
+import Observer from "../observe.js";
+import { getVNode, parseVNode } from "../vnode.js";
+
+/**
+ * @des 根据 根据vnode 进行值 的替换
+ * @param {*} template
+ * @param {*} data
+ */
+function compiler(template, data) {
+  const reg = /\{\{(.*)\}\}/g;
+
+  let childNodes = template.childNodes; // 取出子元素
+
+  for (let i = 0; i < childNodes.length; i++) {
+    let type = childNodes[i].nodeType; // 1 元素, 3 文本节点
+
+    if (type === 3) {
+      let txt = childNodes[i].nodeValue;
+
+      txt = txt.replace(reg, function (_, slotVar) {
+        let key = slotVar.trim(); // 写在双花括号里面的 东西是变量名
+        let value = data[key];
+        return value;
+      });
+
+      // 注意:  txt 现在和 DOM 元素是没有关系
+      childNodes[i].nodeValue = txt;
+    } else if (type === 1) {
+      compiler(childNodes[i], data);
+    }
+  }
+}
 
 /**
  * Vue原型
@@ -14,33 +43,19 @@ import { compiler } from '../compiler.js';
  * @return {*} void
  */
 export default function initRender(MiniVue) {
+  MiniVue.prototype.render = function () {
+    const realHTMLVNode = this._templateDOM.cloneNode(true);
+    compiler(realHTMLVNode, this._data);
+    this.update(getVNode(realHTMLVNode));
+  };
+
   /**
    * @des 更新 - 将虚拟 DOM 渲染到页面中: diff 算法就在里（此版本mini-vue没做diff两次vnode对比）
    * @param {*} vnode
    * @return {*}
    */
-
-  MiniVue.prototype.render = function () {
-    // this._data = this.options.data;
-    // 准备工作 ( 准备模板 )
-    // this._el = this.options.el;
-    // this._templateDOM = document.querySelector(this._el);
-    // this._parent = this._templateDOM.parentNode;
-    console.log('this._data', this._data);
-    new Observer(this._data);
-
-    const realHTMLVNode = this.$templateDOM.cloneNode(true);
-    console.log('this._data', this._data);
-    compiler(realHTMLVNode, this._data);
-
-    this.mount(getVNode(realHTMLVNode));
-    console.log('getVNode(realHTMLVNode)', getVNode(realHTMLVNode));
-  };
-
-  MiniVue.prototype.mount = function (vnode) {
+  MiniVue.prototype.update = function (vnode) {
     const realDOM = parseVNode(vnode);
-    console.log('parseVNode(realHTMLVNode)', realDOM);
-
-    this.$parent.replaceChild(realDOM, document.querySelector(this._el));
+    this._parent.replaceChild(realDOM, document.querySelector(this._el));
   };
 }
