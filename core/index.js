@@ -11,7 +11,7 @@
 // optionsMixin(MiniVue);
 // stateMixin(MiniVue);
 // renderMixin(MiniVue);
-import { Observer } from './define-reactive.js';
+import Observer from './observe.js';
 import { initData, parseVNode, getVNode } from './init-data.js';
 import { Watcher } from './Watcher.js';
 

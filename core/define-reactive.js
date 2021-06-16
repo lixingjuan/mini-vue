@@ -9,12 +9,11 @@ function defineReactive(obj, key) {
   const dep = new Dep();
 
   const property = Object.getOwnPropertyDescriptor(obj, key);
-  obj.testtest = 'test';
-  if (!property.configurable) {
+
+  if (!property?.configurable) {
     return;
   }
 
-  // let childObj = observe(obj[key]);
 
   const { value } = property;
 

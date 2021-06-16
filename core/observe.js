@@ -35,6 +35,7 @@ export function observe(value) {
 export default class Observer {
   constructor(value) {
     this.value = value;
+
     def(value, '__ob__', this);
 
     // TODO: 数组
