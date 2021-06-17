@@ -1,11 +1,11 @@
 // import { observe } from './observe.js';
 
-import { Dep } from './dep.js';
+import { Dep } from "./dep.js";
 /**
  * 重写对象的 get/set
  * 从而实现在 访问/设置 做依赖收集/派发更新
  */
-function defineReactive(obj, key) {
+function defineReactive(obj, key, val, customSetter, shallow) {
   const dep = new Dep();
 
   const property = Object.getOwnPropertyDescriptor(obj, key);
@@ -13,7 +13,6 @@ function defineReactive(obj, key) {
   if (!property?.configurable) {
     return;
   }
-
 
   const { value } = property;
 
@@ -33,10 +32,13 @@ function defineReactive(obj, key) {
     get: function reactiveGetter() {
       // 依赖收集
       dep.depend();
+      if (Array.isArray(value)) {
+        dependArray(value);
+      }
       return tempVal;
     },
     set: function reactiveSetter(newVal) {
-      console.log('访问set');
+      console.log("访问set");
       if (newVal === value || (newVal !== newVal && value !== value)) {
         return;
       }

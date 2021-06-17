@@ -15,21 +15,34 @@
       </div>
     </div>
 
-    <script type="module">
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script>
+      const app = new Vue({
+        el: "#app",
+        data: function () {
+          return {
+            message: "info",
+            name: "lixingjuan",
+            arr: [{ name: "Jack" }, { name: "Mary" }],
+          };
+        },
+      });
+    </script>
+
+    <!-- <script type="module">
       import MiniVue from "./core/index.js";
       // TODO: 这里引入Vue 仅仅是为了方便测试，项目完成后即删除
-      // import Vue from "./node_modules/vue/dist/vue.min.js";
 
       const app = new MiniVue({
         el: "#app",
         data: {
           message: "info",
           name: "lixingjuan",
-          arr: [],
+          arr: [{ name: "Jack" }, { name: "Mary" }],
         },
       });
 
       window.app = app;
-    </script>
+    </script>-->
   </body>
 </html>

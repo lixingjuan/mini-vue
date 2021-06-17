@@ -15,12 +15,26 @@ export function observe(value) {
   if (!isObject(value) || value instanceof VNode) {
     return;
   }
+  debugger;
+  let ob;
 
-  let ob = null;
-
-  new Observer(value);
+  if (hasOwn(value, "__ob__") && value.__ob__ instanceof Observer) {
+    ob = value.__ob__;
+  } else {
+    ob = new Observer(value);
+  }
 
   return ob;
+
+  // if (!isObject(value) || value instanceof VNode) {
+  //   return;
+  // }
+
+  // let ob = null;
+
+  // new Observer(value);
+
+  // return ob;
 }
 
 /**
@@ -33,13 +47,14 @@ export default class Observer {
     this.value = value;
 
     def(value, "__ob__", this);
-
+    console.log({ value });
     // TODO: 数组
     if (Array.isArray(value)) {
+      debugger;
       //   // value.__proto__ =
       protoAugment(value);
       //   // 重写数组的方法，同时将数组的每个元素都变为响应式
-      //   this.observeArray(value);
+      this.observeArray(value);
     } else {
       console.log({ value });
       this.walk(value);
@@ -51,6 +66,7 @@ export default class Observer {
    * 仅当值类型为Object时才应调用此方法
    */
   walk(obj) {
+    debugger;
     const keys = Object.keys(obj);
     keys.forEach((key) => {
       defineReactive(obj, key);
@@ -63,7 +79,7 @@ export default class Observer {
    */
   observeArray(items) {
     items.forEach((it) => {
-      new Observer(it);
+      observe(it);
     });
   }
 }

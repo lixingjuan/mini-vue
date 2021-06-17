@@ -34,7 +34,6 @@ function initData(vm) {
 export function initState(vm) {
   vm._watchers = [];
   const opts = vm.$options;
-  debugger;
 
   if (opts.data) {
     initData(vm);

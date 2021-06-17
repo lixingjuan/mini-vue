@@ -14,6 +14,7 @@ export default function initMixin(Vue) {
     vm._templateDOM = document.querySelector(this._el);
     vm._parent = this._templateDOM.parentNode;
     window.vm = vm;
+
     let startTag, endTag;
 
     vm.$options = options;
