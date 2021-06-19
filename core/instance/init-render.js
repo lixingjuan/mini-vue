@@ -44,6 +44,7 @@ function compiler(template, data) {
  */
 export default function initRender(MiniVue) {
   MiniVue.prototype.render = function () {
+    console.log("渲染啦");
     const realHTMLVNode = this._templateDOM.cloneNode(true);
     compiler(realHTMLVNode, this._data);
     this.update(getVNode(realHTMLVNode));

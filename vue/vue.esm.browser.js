@@ -944,6 +944,8 @@ class Observer {
     this.value = value;
     this.dep = new Dep();
 
+    console.log("Observer", value);
+
     this.vmCount = 0;
     def(value, "__ob__", this);
     if (Array.isArray(value)) {
@@ -1036,6 +1038,8 @@ function observe(value, asRootData) {
  */
 function defineReactive$$1(obj, key, val, customSetter, shallow) {
   const dep = new Dep();
+
+  console.log("defineReactive", obj);
 
   // 用TODO: 来调试
   dep.___$propname__ = key;

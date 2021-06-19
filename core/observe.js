@@ -12,6 +12,8 @@ import { VNode } from "./vnode.js";
  * @return {Observer | void}
  */
 export function observe(value) {
+  console.log("observe 收到的数据", value);
+
   if (!isObject(value) || value instanceof VNode) {
     return;
   }
@@ -20,20 +22,12 @@ export function observe(value) {
   if (hasOwn(value, "__ob__") && value.__ob__ instanceof Observer) {
     ob = value.__ob__;
   } else {
+    // 如果数组数组
+
     ob = new Observer(value);
   }
 
   return ob;
-
-  // if (!isObject(value) || value instanceof VNode) {
-  //   return;
-  // }
-
-  // let ob = null;
-
-  // new Observer(value);
-
-  // return ob;
 }
 
 /**
@@ -46,15 +40,16 @@ export default class Observer {
     this.value = value;
 
     def(value, "__ob__", this);
-    console.log({ value });
+
+    console.log("Observer", value);
+
     // TODO: 数组
     if (Array.isArray(value)) {
-      //   // value.__proto__ =
+      // value.__proto__ =
       protoAugment(value);
-      //   // 重写数组的方法，同时将数组的每个元素都变为响应式
+      // 重写数组的方法，同时将数组的每个元素都变为响应式
       this.observeArray(value);
     } else {
-      console.log({ value });
       this.walk(value);
     }
   }

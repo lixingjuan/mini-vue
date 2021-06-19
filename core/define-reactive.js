@@ -29,6 +29,10 @@ function defineReactive(obj, key, val, customSetter, shallow) {
    */
   let tempVal = value;
 
+  val = obj[key];
+
+  observe(val);
+
   Object.defineProperty(obj, key, {
     enumerable: true,
     configurable: true,
@@ -36,9 +40,9 @@ function defineReactive(obj, key, val, customSetter, shallow) {
       console.log("依赖收集之前的dep", dep);
       // 依赖收集
       dep.depend();
-      if (Array.isArray(value)) {
-        dependArray(value);
-      }
+      // if (Array.isArray(value)) {
+      //   dependArray(value);
+      // }
       return tempVal;
     },
     set: function reactiveSetter(newVal) {
