@@ -15,7 +15,6 @@ export function observe(value) {
   if (!isObject(value) || value instanceof VNode) {
     return;
   }
-  debugger;
   let ob;
 
   if (hasOwn(value, "__ob__") && value.__ob__ instanceof Observer) {
@@ -50,7 +49,6 @@ export default class Observer {
     console.log({ value });
     // TODO: 数组
     if (Array.isArray(value)) {
-      debugger;
       //   // value.__proto__ =
       protoAugment(value);
       //   // 重写数组的方法，同时将数组的每个元素都变为响应式
@@ -66,7 +64,6 @@ export default class Observer {
    * 仅当值类型为Object时才应调用此方法
    */
   walk(obj) {
-    debugger;
     const keys = Object.keys(obj);
     keys.forEach((key) => {
       defineReactive(obj, key);

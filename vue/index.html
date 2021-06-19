@@ -9,7 +9,7 @@
   <body>
     <!-- 写模板 -->
     <div id="app">
-      <h1>MiniVue</h1>
+      <h1>Vue</h1>
       <div>
         <p class="message">{{ message }}</p>
         <p>{{ name }}</p>
@@ -17,17 +17,18 @@
     </div>
 
     <script type="module">
-      import MiniVue from "./core/index.js";
+      import Vue from "./vue.esm.browser.js";
 
-      const app = new MiniVue({
+      const app = new Vue({
         el: "#app",
-        data: {
-          message: "info",
-          name: "lixingjuan",
-          arr: [{ name: "Jack" }, { name: "Mary" }],
+        data: function () {
+          return {
+            message: "info",
+            name: "lixingjuan",
+            arr: [{ name: "Jack" }, { name: "Mary" }],
+          };
         },
       });
-
       window.app = app;
     </script>
   </body>

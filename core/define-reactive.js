@@ -1,4 +1,4 @@
-// import { observe } from './observe.js';
+import { observe } from "./observe.js";
 
 import { Dep } from "./dep.js";
 /**
@@ -7,6 +7,9 @@ import { Dep } from "./dep.js";
  */
 function defineReactive(obj, key, val, customSetter, shallow) {
   const dep = new Dep();
+
+  // 用来调试
+  dep.___$propname__ = key;
 
   const property = Object.getOwnPropertyDescriptor(obj, key);
 
@@ -30,6 +33,7 @@ function defineReactive(obj, key, val, customSetter, shallow) {
     enumerable: true,
     configurable: true,
     get: function reactiveGetter() {
+      console.log("依赖收集之前的dep", dep);
       // 依赖收集
       dep.depend();
       if (Array.isArray(value)) {

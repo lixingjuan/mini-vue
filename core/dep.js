@@ -11,11 +11,15 @@
  *
  */
 
+/**
+ * 用于标识 Dep
+ */
 let depid = 0;
 
 export class Dep {
   constructor() {
     this.id = depid++;
+
     this.subs = []; // 存储的是与 当前 Dep 关联的 watcher
   }
 
@@ -77,13 +81,14 @@ export function pushTarget(_target) {
   }
   console.log(targetStack);
   Dep.target = _target;
+  console.log("pushTarget Dep.target", Dep.target);
 }
 
 /**
  * 将 当前 watcher 从 执行栈 移出
  */
 export function popTarget() {
-  console.log('targetStack', targetStack);
+  console.log("targetStack", targetStack);
   Dep.target = targetStack.shift(); // 踢到最后就是 undefined
 }
 
