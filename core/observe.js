@@ -2,6 +2,7 @@ import { defineReactive } from "./define-reactive.js";
 import { protoAugment } from "./array.js";
 import { isObject, def, hasOwn } from "../utils/index.js";
 import { VNode } from "./vnode.js";
+import { Dep } from "./dep.js";
 
 /**
  * @des 尝试为值创建观察者实例，
@@ -17,6 +18,7 @@ export function observe(value) {
   if (!isObject(value) || value instanceof VNode) {
     return;
   }
+
   let ob;
 
   if (hasOwn(value, "__ob__") && value.__ob__ instanceof Observer) {
@@ -38,6 +40,7 @@ export function observe(value) {
 export default class Observer {
   constructor(value) {
     this.value = value;
+    this.dep = new Dep();
 
     def(value, "__ob__", this);
 

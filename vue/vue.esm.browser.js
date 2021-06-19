@@ -897,9 +897,13 @@ const methodsToPatch = [
 methodsToPatch.forEach(function (method) {
   // cache original method
   const original = arrayProto[method];
+
   def(arrayMethods, method, function mutator(...args) {
     const result = original.apply(this, args);
+
     const ob = this.__ob__;
+    console.log("this.__ob__", this.__ob__);
+
     let inserted;
     switch (method) {
       case "push":
