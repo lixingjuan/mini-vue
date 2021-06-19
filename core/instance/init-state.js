@@ -1,5 +1,5 @@
-import { noop } from "../../utils/index.js";
 import { observe } from "../observe.js";
+import { noop } from "../../shared/util.js";
 
 const sharedPropertyDefinition = {
   enumerable: true,

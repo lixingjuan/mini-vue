@@ -5,8 +5,13 @@
  */
 
 export function isObject(obj) {
-  return obj !== null && typeof obj === 'object';
+  return obj !== null && typeof obj === "object";
 }
+
+/**
+ * 获取一个值的原始类型字符串，例如，[object Object]。
+ */
+export const _toString = Object.prototype.toString;
 
 /**
  * @des Perform no operation.
@@ -39,4 +44,33 @@ export function def(obj, key, val, enumerable) {
     writable: true,
     configurable: true,
   });
+}
+
+/**
+ * @des Define a property.
+ * @param {*} obj
+ * @return {*} string
+ */
+export function toString(val) {
+  let tempVal = val;
+  if (val === null) {
+    tempVal = "";
+  } else if (
+    Array.isArray(val) ||
+    (isPlainObject(val) && val.toString === _toString)
+  ) {
+    tempVal = JSON.stringify(val, null, 2);
+  } else {
+    tempVal = String(val);
+  }
+
+  return tempVal;
+}
+
+/**
+ * Strict object type check. Only returns true
+ * for plain JavaScript objects.
+ */
+export function isPlainObject(obj) {
+  return _toString.call(obj) === "[object Object]";
 }

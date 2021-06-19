@@ -1,5 +1,6 @@
 import Observer from "../observe.js";
 import { getVNode, parseVNode } from "../vnode.js";
+import { toString } from "../../shared/util.js";
 
 /**
  * @des 根据 根据vnode 进行值 的替换
@@ -20,7 +21,7 @@ function compiler(template, data) {
       txt = txt.replace(reg, function (_, slotVar) {
         let key = slotVar.trim(); // 写在双花括号里面的 东西是变量名
         let value = data[key];
-        return value;
+        return toString(value);
       });
 
       // 注意:  txt 现在和 DOM 元素是没有关系

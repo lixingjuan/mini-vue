@@ -1,6 +1,6 @@
 import { defineReactive } from "./define-reactive.js";
 import { protoAugment } from "./array.js";
-import { isObject, def, hasOwn } from "../utils/index.js";
+import { isObject, def, hasOwn } from "../shared/util.js";
 import { VNode } from "./vnode.js";
 import { Dep } from "./dep.js";
 
