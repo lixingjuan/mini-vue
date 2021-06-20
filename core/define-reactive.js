@@ -34,7 +34,7 @@ function defineReactive(obj, key, val, customSetter, shallow) {
 
   const { value } = property;
 
-  // cater for pre-defined getter/setters
+  // 获取属性描述，即 使用 definePrototype 时传入的参数
   const getter = property && property.get;
   const setter = property && property.set;
   if ((!getter || setter) && arguments.length === 2) {

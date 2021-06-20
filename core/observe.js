@@ -1,8 +1,9 @@
 import { defineReactive } from "./define-reactive.js";
-import { protoAugment } from "./array.js";
+import { protoAugment, copyAugment } from "./array.js";
 import { isObject, def, hasOwn } from "../shared/util.js";
 import { VNode } from "./vnode.js";
 import { Dep } from "./dep.js";
+import { hasProto } from "./util/env.js";
 
 /**
  * @des 尝试为值创建观察者实例，
@@ -47,10 +48,15 @@ export default class Observer {
     console.log("Observer", value);
 
     // TODO: 数组
+    // 重写数组的方法，同时将数组的每个元素都变为响应式
     if (Array.isArray(value)) {
+      // 浏览器能力检测
+      if (hasProto) {
+        protoAugment(value);
+      } else {
+        copyAugment(value);
+      }
       // value.__proto__ =
-      protoAugment(value);
-      // 重写数组的方法，同时将数组的每个元素都变为响应式
       this.observeArray(value);
     } else {
       this.walk(value);
